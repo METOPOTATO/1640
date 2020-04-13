@@ -20,12 +20,20 @@ export class LoginFormComponent implements OnInit {
   }
 
   login(){
+    
+     
     const token = this.service.login(this.user).subscribe(
       ()=> {
         // const email = localStorage.getItem('userEmail')
         var role = localStorage.getItem('userRole')
-        const link = "/"+ role
-        this.router.navigateByUrl(link)
+        console.log(role)
+        if(role !='' && role != null){
+          const link = "/"+ role
+          this.router.navigateByUrl(link)
+        }
+        else{
+
+        }
       }
     )
     console.log(this.user.email)

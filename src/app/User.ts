@@ -2,7 +2,6 @@
 export interface User{
     email: string;
     password: string;
-
 }
 
 export interface Token{
@@ -11,7 +10,5 @@ export interface Token{
     role:string;
 }
 
-export interface Infomation{
-    
-}
+
 

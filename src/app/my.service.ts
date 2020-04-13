@@ -22,7 +22,7 @@ const httpOptions = {
 
 export class MyService implements CanActivate {
 
-  private role:string;
+  public role:string;
   private token: string;
   private getUrl   = "http://127.0.0.1:2222/get"
   private loginUrl = "http://127.0.0.1:2222/login"
@@ -74,7 +74,11 @@ export class MyService implements CanActivate {
 
   public logout(): void {
     this.token = ''
+    this.role = ''
     window.localStorage.removeItem('usertoken')
+    window.localStorage.removeItem('userRole')
+    window.localStorage.removeItem('userEmail')
+    window.localStorage.removeItem('room')
     this.router.navigateByUrl('/')
   }
 
@@ -86,15 +90,20 @@ export class MyService implements CanActivate {
       return false
     }
     let role =next.data['role'] as Array<string>
-    if (role[0] != localStorage.getItem('userRole'))
-    {
-      this.router.navigateByUrl('/forbidden')
-      return false
+    if (role != null){
+      if (role[0] != localStorage.getItem('userRole'))
+      {
+        this.router.navigateByUrl('/forbidden')
+        return false
+      }
     }
-    return true
 
+    return true
   }
 
+  public checkRole(){
+    return localStorage.getItem('userRole')
+  }
 }
 
 

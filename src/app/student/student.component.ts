@@ -1,15 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MessageService } from '../message.service';
+import { Message } from '../classes'
+import { Observable, pipe } from 'rxjs';
+import { formatDate } from '@angular/common';
+import { map } from 'rxjs/operators';
+import { dashCaseToCamelCase } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.css']
 })
-export class StudentComponent implements OnInit {
+export class StudentComponent implements OnInit, OnDestroy {
+  fullMessage: Message
+  message: string
+  listMessage: Message[]
 
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(private messageService: MessageService) {
+
+    this.messageService.listMesaages.subscribe((data) => {
+      this.listMessage = data
+
+    })
+    
   }
 
+  ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    
+  }
+  send() {
+    //send data Message
+    this.fullMessage = new Message()
+    this.fullMessage.content = this.message
+    this.fullMessage.room = parseInt(localStorage.getItem('room'))
+    this.fullMessage.by = localStorage.getItem('userEmail')
+    this.fullMessage.at = formatDate(Date.now(), 'yyyy-MM-dd', 'en-US')
+
+    this.messageService.send(this.fullMessage)
+    this.message = ''
+
+    this.messageService.listMesaages = this.messageService.getMessages()
+    this.messageService.listMesaages.subscribe((data) => {
+      console.log(data)
+      this.listMessage = data
+    })
+  }
+
+  checkSender(m) {
+    if (m.upload_by === localStorage.getItem('userEmail')) {
+      return true
+    }
+  }
 }

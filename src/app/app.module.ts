@@ -11,8 +11,11 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { FormsModule } from '@angular/forms';
 import { StudentComponent } from './student/student.component';
 import { TutorComponent } from './tutor/tutor.component';
-import { AdminComponent } from './admin/admin.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './home/home.component';
+import { StaffComponent } from './staff/staff.component';
+import { RoomComponent } from './tutor/room/room.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,8 +23,11 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     LoginFormComponent,
     StudentComponent,
     TutorComponent,
-    AdminComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    PageNotFoundComponent,
+    HomeComponent,
+    StaffComponent,
+    RoomComponent
   ],
   imports: [
     BrowserModule,
@@ -33,3 +39,4 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 
